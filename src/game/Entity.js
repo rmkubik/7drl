@@ -1,6 +1,8 @@
 class Entity {
 
     constructor(icon) {
+        this.components = {};
+        
         this.icon = icon;
         this.brain = {}; // player or other npc behavior
         this.stats = {

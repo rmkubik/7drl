@@ -18,6 +18,28 @@ class Grid {
         return tiles;
     }
 
+    isPositionInGrid(position) {
+        return position.x >= 0 && position.x < this.width()
+            && position.y >= 0 && position.y < this.height();
+    }
+
+    getEntity(position) {
+        if (this.isPositionInGrid(position)) {
+            return this.tiles[position.y][position.x].entity;
+        }
+    }
+
+    addEntity(entity, position) {
+        this.tiles[position.y][position.x].entity = entity;
+        entity.position = position;
+    }
+
+    removeEntity(position) {
+        const {entity} = this.tiles[position.y][position.x];
+        this.tiles[position.y][position.x].entity = undefined;
+        return entity;
+    }
+
     width = () => this.tiles.length;
 
     height = () => this.tiles[0].length;
