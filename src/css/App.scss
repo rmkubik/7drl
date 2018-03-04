@@ -1,0 +1,33 @@
+@import 'node_modules/reset-css/_reset';
+
+$cell-size: 25px;
+$cell-borderColor: gray;
+$cell-borderSize: 1px;
+
+.app {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+
+        .tile {
+            border-width: $cell-borderSize;
+            border-color: $cell-borderColor;
+            border-style: solid;
+            width: $cell-size;
+            height: $cell-size;
+            margin-left: -$cell-borderSize;
+            margin-top: -$cell-borderSize;
+            padding: 3px;
+            text-align: center;
+
+            p {
+                line-height: 25px;
+                font-size: 25px;
+            }
+        }
+    }
+}
