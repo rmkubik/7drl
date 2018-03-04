@@ -3,12 +3,11 @@ import { h, app } from 'hyperapp';
 import './src/css/App.scss';
 
 import Game from './src/game/Game';
-import Input from './src/game/Input';
+import PlayerBrain from './src/game/PlayerBrain';
 import Tile from './src/components/Tile';
 
 const game = new Game();
-const input = new Input(document);
-input.listen('a', () => {console.log('a')});
+const playerBrain = new PlayerBrain();
 
 const state = {
   tiles: game.grid.tiles
