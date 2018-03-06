@@ -1,6 +1,7 @@
 import Grid from './Grid';
 import Entity from './Entity';
 import MoveComponent from './MoveComponent';
+import PlayerBrain from './PlayerBrain';
 
 class Game {
 
@@ -10,17 +11,16 @@ class Game {
         this.grid = new Grid(w, h);
         this.grid.addEntity(new Entity('👩🏻‍🎨'), {x: 4, y: 4});
         MoveComponent(this.grid.tiles[4][4].entity, this.grid);
-        this.grid.tiles[4][4].entity.components.move.up();
-        this.grid.tiles[3][4].entity.components.move.up();
-        this.grid.tiles[2][4].entity.components.move.up();
-        this.grid.tiles[1][4].entity.components.move.up();
-        this.grid.tiles[0][4].entity.components.move.up();
-        this.grid.tiles[0][4].entity.components.move.left();
-        this.grid.tiles[0][3].entity.components.move.right();
-        this.grid.tiles[0][4].entity.components.move.right();
-        this.grid.tiles[0][5].entity.components.move.down();
+
+        this.grid.addEntity(new Entity('🐞'), {x: 3, y: 2});
+        this.grid.addEntity(new Entity('🐞'), {x: 1, y: 7});
+        this.grid.addEntity(new Entity('🐞'), {x: 4, y: 8});
+        this.grid.addEntity(new Entity('🐞'), {x: 2, y: 2});
     }
 
+    bindActions(actions) {
+        PlayerBrain(this.grid.tiles[4][4].entity, actions);
+    }
 }
 
 export default Game;
