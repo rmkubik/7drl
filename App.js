@@ -27,4 +27,6 @@ const view = (state, actions) => (
   </div>
 )
 
-app(state, actions, view, document.body);
+const main = app(state, actions, view, document.body);
+
+game.bindActions({render: main.render});
