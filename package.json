@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "hyperapp": "^1.1.2",
-    "reset-css": "^2.2.1"
+    "random-seed": "^0.3.0",
+    "reset-css": "^2.2.1",
+    "tinyqueue": "^1.2.3"
   }
 }
