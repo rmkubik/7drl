@@ -12,7 +12,7 @@ const state = {
 }
 
 const actions = {
-  render: value => state => ({ tiles: game.grid.tiles })
+  render: tiles => state => ({ tiles })
 }
 
 const view = (state, actions) => (
