@@ -22,8 +22,8 @@ const PlayerBrain = (entity, render) => {
     // on update:
     // execute most recently stored action?
 
-    const brain = () => {
-
+    const brain = {
+        update: () => { console.log('wait for input'); }
     }
 
     Object.assign(
