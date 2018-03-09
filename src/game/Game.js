@@ -1,7 +1,10 @@
 import gen from 'random-seed';
+import fsm from 'javascript-state-machine';
 
 import Grid from './Grid';
 import Entity from './Entity';
+import Input from './Input';
+import Turns from './Turns';
 import MoveComponent from './MoveComponent';
 import BugBrain from './BugBrain';
 import PlayerBrain from './PlayerBrain';
@@ -15,35 +18,33 @@ class Game {
 
     constructor() {
         this.rand = new gen(this.seed);
+        const input = new Input(document, () => {
+            this.turns.resumeTurn();
+            this.render();
+        });
 
         const w = 9;
         const h = 9;
         this.grid = new Grid(w, h);
 
-        this.addEntity(new Entity('👩🏻‍🎨'), {x: 4, y: 4});
-        MoveComponent(this.entities[0], this.grid);
-        PlayerBrain(this.entities[0], this.render);
+        const player = new Entity('👩🏻‍🎨');
+        this.addEntity(player, {x: 4, y: 4});
+        MoveComponent(player, this.grid);
+        PlayerBrain(player, input);
+        player.stats.initiative.current = -1;
 
-        this.addEntity(new Entity('🐞'), {x: 3, y: 2});
-        MoveComponent(this.entities[1], this.grid);
-        BugBrain(this.entities[1], this.rand);
+        const addBug = (x, y) => {
+            const bug = new Entity('🐞');
+            this.addEntity(bug, {x, y});
+            MoveComponent(bug, this.grid);
+            BugBrain(bug, this.rand);
+        }
 
-        this.addEntity(new Entity('🐞'), {x: 1, y: 7});
-        this.addEntity(new Entity('🐞'), {x: 4, y: 8});
-        this.addEntity(new Entity('🐞'), {x: 2, y: 2});
-    }
+        addBug(3, 2);
+        addBug(1, 7);
+        addBug(4, 8);
+        addBug(2, 2);
 
-    update() {
-        // update game state every time player makes an action
-        // update all game entities, brain assigns update action?
-        this.entities.forEach((entity) => {
-            if (entity.components.brain) {
-                entity.components.brain.update();
-                this.render();
-            }
-        });
-        // ^^^ turn this into a priority queue based on initiative?
-        // ^^^ when you hit a player brain, wait for input
     }
 
     render = () => {
@@ -52,6 +53,7 @@ class Game {
 
     bindActions = (actions) => {
         this.actions = actions;
+        this.turns = new Turns(this.entities, this.render);
     }
 
     addEntity(entity, position) {
