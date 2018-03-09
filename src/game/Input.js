@@ -3,10 +3,11 @@ class Input {
     keydown = {};
     listeners = {};
 
-    constructor(doc) {
+    constructor(doc, inputEventCallback) {
         doc.addEventListener('keydown', event => {
             if (!this.keydown[event.key]) {
                 this.listeners[event.key] && this.listeners[event.key]();
+                inputEventCallback(event.key);
             }
             this.keydown[event.key] = true;
         });
