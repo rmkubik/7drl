@@ -4,9 +4,17 @@ class Entity {
         this.components = {};
 
         this.icon = icon;
-        this.brain = {}; // player or other npc behavior
         this.stats = {
-            health: 5
+            health: {
+                current: 5,
+                default: 5,
+                max: 10
+            },
+            initiative: {
+                current: 0,
+                default: 0,
+                max: 10
+            }
         };
     }
 
