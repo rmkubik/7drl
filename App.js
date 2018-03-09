@@ -30,3 +30,5 @@ const view = (state, actions) => (
 const main = app(state, actions, view, document.body);
 
 game.bindActions({render: main.render});
+
+window.game = game;
