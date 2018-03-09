@@ -19,7 +19,11 @@ class Game {
     constructor() {
         this.rand = new gen(this.seed);
         const input = new Input(document, () => {
-            this.turns.resumeTurn();
+            this.turns.resumeTurn(() => {
+                const randPos = this.grid.getRandomEdgePosition(this.rand);
+                console.log(randPos);
+                addBug(randPos.x, randPos.y);
+            });
             this.render();
         });
 
