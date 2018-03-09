@@ -18,6 +18,18 @@ class Grid {
         return tiles;
     }
 
+    getRandomEdgePosition(rand) {
+        const side = rand.intBetween(0, 3);
+
+        if (side === 0 || side === 1) {
+            const y = rand.intBetween(0, this.width() - 1);
+            return { x: side * (this.height() - 1), y }
+        } else {
+            const x = rand.intBetween(0, this.height() - 1);
+            return { x, y: (side - 2) * (this.width() - 1) }
+        }
+    }
+
     isPositionInGrid(position) {
         return position.y >= 0 && position.y < this.width()
             && position.x >= 0 && position.x < this.height();
