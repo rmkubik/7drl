@@ -6,7 +6,7 @@ const playerKeys = {
     right: 'd'
 }
 
-const PlayerBrain = (entity, update, input) => {
+const PlayerBrain = (entity, input) => {
     const { move } = entity.components;
     if (!move) console.error("Entity does not have move component!");
 
