@@ -1,4 +1,3 @@
-import Input from './Input';
 
 const playerKeys = {
     up: 'w',
@@ -7,15 +6,14 @@ const playerKeys = {
     right: 'd'
 }
 
-const PlayerBrain = (entity, render) => {
+const PlayerBrain = (entity, update, input) => {
     const { move } = entity.components;
     if (!move) console.error("Entity does not have move component!");
 
-    const input = new Input(document);
-    input.listen(playerKeys.up, () => { move.up(); render(); });
-    input.listen(playerKeys.down, () => { move.down(); render(); });
-    input.listen(playerKeys.left, () => { move.left(); render(); });
-    input.listen(playerKeys.right, () => { move.right(); render(); });
+    input.listen(playerKeys.up, () => { move.up(); });
+    input.listen(playerKeys.down, () => { move.down(); });
+    input.listen(playerKeys.left, () => { move.left(); });
+    input.listen(playerKeys.right, () => { move.right(); });
 
     // on input:
     // store action in brain?
@@ -23,6 +21,7 @@ const PlayerBrain = (entity, render) => {
     // execute most recently stored action?
 
     const brain = {
+        type: 'player',
         update: () => { console.log('wait for input'); }
     }
 
