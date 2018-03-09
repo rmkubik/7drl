@@ -14,15 +14,16 @@ class Turns {
         this.resumeTurn();
     }
 
-    resumeTurn() {
+    resumeTurn(newTurnCallback) {
         this.waitingForInput = false;
         if (this.currentTurn.isTurnOver()) {
+            newTurnCallback();
             this.newTurn();
         } else {
             this.currentTurn.update();
         }
     }
-    
+
 }
 
 class Turn {
@@ -42,6 +43,7 @@ class Turn {
                     case 'player':
                         this.turns.waitingForInput = true;
                         break;
+
                     default:
                         brain.update();
                         break;
