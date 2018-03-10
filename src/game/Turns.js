@@ -30,6 +30,9 @@ class Turn {
 
     constructor(entities, turns, render) {
         this.entities = new TinyQueue(entities, this.entityCompatator);
+        entities.forEach((entity) => {
+            console.log(entity.components.brain.telegraph());
+        });
         this.turns = turns;
         this.render = render;
     }
