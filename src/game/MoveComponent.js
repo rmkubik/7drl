@@ -1,3 +1,5 @@
+import TargetingSystem from './TargetingSystem';
+
 const MoveComponent = (entity, grid) => {
     const isValidMove = (position) => {
         return grid.isPositionInGrid(position) && !grid.getEntity(position);
@@ -12,35 +14,13 @@ const MoveComponent = (entity, grid) => {
         }
     }
 
+    const targeting = new TargetingSystem(entity);
+
     const move = {
-        up: () => {
-            const targetPos = {
-                x: entity.position.x,
-                y: entity.position.y - 1
-            }
-            moveTo(targetPos);
-        },
-        down: () => {
-            const targetPos = {
-                x: entity.position.x,
-                y: entity.position.y + 1
-            }
-            moveTo(targetPos);
-        },
-        left: () => {
-            const targetPos = {
-                x: entity.position.x - 1,
-                y: entity.position.y
-            }
-            moveTo(targetPos);
-        },
-        right: () => {
-            const targetPos = {
-                x: entity.position.x + 1,
-                y: entity.position.y
-            }
-            moveTo(targetPos);
-        }
+        up: () => { moveTo(targeting.target('up')); },
+        down: () => { moveTo(targeting.target('down')); },
+        left: () => { moveTo(targeting.target('left')); },
+        right: () => { moveTo(targeting.target('right')); }
     };
 
     Object.assign(
