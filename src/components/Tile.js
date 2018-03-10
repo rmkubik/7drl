@@ -1,7 +1,7 @@
 import { h } from 'hyperapp';
 
-const Tile = ({unit}) => (
-    <div class="tile">
+const Tile = ({unit, targeted}) => (
+    <div class={`tile${targeted ? ' targeted' : ''}`}>
         <p>{unit}</p>
     </div>
 )
