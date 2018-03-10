@@ -21,7 +21,6 @@ class Game {
         const input = new Input(document, () => {
             this.turns.resumeTurn(() => {
                 const randPos = this.grid.getRandomEdgePosition(this.rand);
-                console.log(randPos);
                 addBug(randPos.x, randPos.y);
             });
             this.render();

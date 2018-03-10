@@ -22,7 +22,8 @@ const PlayerBrain = (entity, input) => {
 
     const brain = {
         type: 'player',
-        update: () => { console.log('wait for input'); }
+        update: () => { console.log('wait for input'); },
+        telegraph: () => { console.log('player telegraph'); }
     }
 
     Object.assign(
