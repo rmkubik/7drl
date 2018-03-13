@@ -4,12 +4,23 @@ class Tile {
 
     constructor(entity) {
         this.entity = entity;
+        this.targeted = false;
     }
 
+    // draw() {
+    //     if (this.entity) {
+    //         return {
+    //             unit: this.entity.icon,
+    //             targeted: this.targeted
+    //         }
+    //     }
+    // }
+
     draw() {
-        if (this.entity) {
-            return this.entity.icon;
-        }
+        return {
+            unit: this.entity ? this.entity.icon : undefined,
+            targeted: this.targeted
+        };
     }
 
 }

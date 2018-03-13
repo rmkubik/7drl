@@ -4,7 +4,6 @@ class Grid {
 
     constructor(width, height) {
         this.tiles = this._initTiles(width, height);
-
     }
 
     _initTiles(width, height) {
@@ -35,6 +34,20 @@ class Grid {
             && position.x >= 0 && position.x < this.height();
     }
 
+    targetTile(position, targeted) {
+        if (this.isPositionInGrid(position)) {
+            this.tiles[position.y][position.x].targeted = targeted;
+        }
+    }
+
+    unTargetAllTiles() {
+        this.tiles.forEach((row) => {
+            row.forEach((tile) => {
+                tile.targeted = false;
+            });
+        });
+    }
+
     getEntity(position) {
         if (this.isPositionInGrid(position)) {
             return this.tiles[position.y][position.x].entity;
@@ -47,7 +60,7 @@ class Grid {
     }
 
     removeEntity(position) {
-        const {entity} = this.tiles[position.y][position.x];
+        const { entity } = this.tiles[position.y][position.x];
         this.tiles[position.y][position.x].entity = undefined;
         return entity;
     }

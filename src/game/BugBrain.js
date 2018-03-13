@@ -9,7 +9,6 @@ const BugBrain = (entity, rand) => {
     let nextDirection;
 
     const update = () => {
-        nextDirection = rand.intBetween(0, 3);
         move[targeting.directions[nextDirection]]();
     }
 

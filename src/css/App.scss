@@ -28,6 +28,16 @@ $cell-borderSize: 1px;
                 line-height: 25px;
                 font-size: 25px;
             }
+
+            &.targeted {
+                background: repeating-linear-gradient(
+                  45deg,
+                  transparent,
+                  transparent 5px,
+                  red 5px,
+                  red 10px
+                );
+            }
         }
     }
 }

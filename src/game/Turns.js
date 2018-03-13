@@ -2,22 +2,31 @@ import TinyQueue from 'tinyqueue';
 
 class Turns {
 
-    constructor(entities, render) {
+    constructor(entities, render, update, newTurnCallback) {
         this.waitingForInput = false;
         this.render = render;
+        this.update = update;
         this.entities = entities;
+        this.newTurnCallback = newTurnCallback;
         this.newTurn();
     }
 
-    newTurn() {
-        this.currentTurn = new Turn([...this.entities], this, this.render);
+    newTurn = () => {
+        this.newTurnCallback();
+        this.currentTurn = new Turn(
+            [...this.entities],
+            this,
+            this.render,
+            this.update,
+            this.newTurn,
+            this.newTurnCallback
+        );
         this.resumeTurn();
     }
 
-    resumeTurn(newTurnCallback) {
+    resumeTurn() {
         this.waitingForInput = false;
         if (this.currentTurn.isTurnOver()) {
-            newTurnCallback();
             this.newTurn();
         } else {
             this.currentTurn.update();
@@ -28,13 +37,12 @@ class Turns {
 
 class Turn {
 
-    constructor(entities, turns, render) {
+    constructor(entities, turns, render, update, newTurn) {
         this.entities = new TinyQueue(entities, this.entityCompatator);
-        entities.forEach((entity) => {
-            console.log(entity.components.brain.telegraph());
-        });
+        update();
         this.turns = turns;
         this.render = render;
+        this.newTurn = newTurn;
     }
 
     update() {
@@ -53,6 +61,10 @@ class Turn {
                 }
                 this.render();
             }
+        }
+
+        if (this.isTurnOver()) {
+            this.newTurn();
         }
     }
 

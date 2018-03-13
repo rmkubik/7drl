@@ -20,7 +20,7 @@ const view = (state, actions) => (
     {state.tiles.map(row => (
         <div class="row">
             {row.map(tile => (
-                <Tile unit={tile.draw()} />
+                <Tile {...tile.draw()} />
             ))}
         </div>
     ))}

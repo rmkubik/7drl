@@ -19,10 +19,7 @@ class Game {
     constructor() {
         this.rand = new gen(this.seed);
         const input = new Input(document, () => {
-            this.turns.resumeTurn(() => {
-                const randPos = this.grid.getRandomEdgePosition(this.rand);
-                addBug(randPos.x, randPos.y);
-            });
+            this.turns.resumeTurn();
             this.render();
         });
 
@@ -34,20 +31,33 @@ class Game {
         this.addEntity(player, {x: 4, y: 4});
         MoveComponent(player, this.grid);
         PlayerBrain(player, input);
-        player.stats.initiative.current = -1;
+        player.stats.initiative.current = 1;
 
-        const addBug = (x, y) => {
+        this.addBug = (x, y) => {
             const bug = new Entity('🐞');
             this.addEntity(bug, {x, y});
             MoveComponent(bug, this.grid);
             BugBrain(bug, this.rand);
         }
 
-        addBug(3, 2);
-        addBug(1, 7);
-        addBug(4, 8);
-        addBug(2, 2);
+        this.addBug(3, 2);
+        this.addBug(1, 7);
+        this.addBug(4, 8);
+        this.addBug(2, 2);
 
+    }
+
+    update = () => {
+        this.grid.unTargetAllTiles();
+
+        this.entities.forEach((entity) => {
+            if (entity.components.brain.type !== 'player') {
+                const tilePos = entity.components.brain.telegraph();
+                this.grid.targetTile(tilePos, true);
+            }
+        });
+
+        this.render();
     }
 
     render = () => {
@@ -56,7 +66,10 @@ class Game {
 
     bindActions = (actions) => {
         this.actions = actions;
-        this.turns = new Turns(this.entities, this.render);
+        this.turns = new Turns(this.entities, this.render, this.update, () => {
+            const randPos = this.grid.getRandomEdgePosition(this.rand);
+            this.addBug(randPos.x, randPos.y);
+        });
     }
 
     addEntity(entity, position) {
