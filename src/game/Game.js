@@ -8,6 +8,7 @@ import Turns from "./Turns";
 import MoveComponent from "./MoveComponent";
 import BugBrain from "./BugBrain";
 import PlayerBrain from "./PlayerBrain";
+import randIntBetween from "../utils/randIntBetween";
 
 class Game {
   entities = [];
@@ -38,6 +39,21 @@ class Game {
       BugBrain(bug, this.rand);
     };
 
+    this.addSword = (x, y) => {
+      const sword = new Entity("🗡");
+      this.addEntity(sword, { x, y });
+    };
+
+    this.addHeart = (x, y) => {
+      const heart = new Entity("❤️");
+      this.addEntity(heart, { x, y });
+    };
+
+    console.log({ x: randIntBetween(0, w), y: 0 });
+
+    this.addSword(randIntBetween(0, w - 1), 0);
+    this.addHeart(randIntBetween(0, w - 1), h - 1);
+
     // this.setState(initialState);
   }
 
@@ -49,7 +65,10 @@ class Game {
     this.grid.unTargetAllTiles();
 
     this.entities.forEach((entity) => {
-      if (entity.components.brain.type !== "player") {
+      if (
+        entity.components.brain &&
+        entity.components.brain.type !== "player"
+      ) {
         const tilePos = entity.components.brain.telegraph();
         this.grid.targetTile(tilePos, true);
       }
