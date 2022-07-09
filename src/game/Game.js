@@ -37,7 +37,13 @@ class Game {
       MoveComponent(bug, this.grid);
       BugBrain(bug, this.rand);
     };
+
+    // this.setState(initialState);
   }
+
+  setState = (state) => {
+    this.state = state;
+  };
 
   update = () => {
     this.grid.unTargetAllTiles();
@@ -59,8 +65,18 @@ class Game {
   bindActions = (actions) => {
     this.actions = actions;
     this.turns = new Turns(this.entities, this.render, this.update, () => {
-      const randPos = this.grid.getRandomEdgePosition(this.rand);
-      this.addBug(randPos.x, randPos.y);
+      // Spawn every 4 turns starting on 1st turn, not 0th turn
+      const { turnNumber } = this.state;
+
+      const BUG_SPAWN_INTERVAL = 4;
+      const FIRST_BUG_SPAWN_TURN = 1;
+
+      if ((turnNumber - FIRST_BUG_SPAWN_TURN) % BUG_SPAWN_INTERVAL === 0) {
+        const randPos = this.grid.getRandomEdgePosition(this.rand);
+        this.addBug(randPos.x, randPos.y);
+      }
+
+      this.actions.incrementTurnNumber();
     });
   };
 
