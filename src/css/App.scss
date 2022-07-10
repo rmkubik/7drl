@@ -1,8 +1,12 @@
 @import "node_modules/reset-css/_reset";
 
-$cell-size: 25px;
-$cell-borderColor: gray;
+$cell-size: 40px;
+$cell-borderColor: black;
 $cell-borderSize: 1px;
+
+body {
+  background-color: #111111;
+}
 
 .app {
   padding: 25px;

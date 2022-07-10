@@ -10,7 +10,10 @@ import BugBrain from "./BugBrain";
 import PlayerBrain from "./PlayerBrain";
 import randIntBetween from "../utils/randIntBetween";
 
-import playerSpriteSheet from "../../assets/basic_guy3_sheet1.png";
+import playerSpriteSheet from "../../assets/basic_guy3.png";
+import swordSpriteSheet from "../../assets/sword3.png";
+import heartsSpriteSheet from "../../assets/hearts.png";
+import evilGuy1bSpriteSheet from "../../assets/evil_guy1b.png";
 
 class Game {
   entities = [];
@@ -32,8 +35,8 @@ class Game {
 
     const player = new Entity("👩🏻‍🎨", {
       src: playerSpriteSheet,
-      frameWidth: 24,
-      frameHeight: 24,
+      frameWidth: 40,
+      frameHeight: 40,
     });
     this.addEntity(player, { x: 4, y: 4 });
     MoveComponent(player, this.grid);
@@ -41,19 +44,31 @@ class Game {
     player.stats.initiative.current = 1;
 
     this.addBug = (x, y) => {
-      const bug = new Entity("🐞");
+      const bug = new Entity("🐞", {
+        src: evilGuy1bSpriteSheet,
+        frameWidth: 40,
+        frameHeight: 40,
+      });
       this.addEntity(bug, { x, y });
       MoveComponent(bug, this.grid);
       BugBrain(bug, this.rand);
     };
 
     this.addSword = (x, y) => {
-      const sword = new Entity("🗡");
+      const sword = new Entity("🗡", {
+        src: swordSpriteSheet,
+        frameWidth: 40,
+        frameHeight: 40,
+      });
       this.addEntity(sword, { x, y });
     };
 
     this.addHeart = (x, y) => {
-      const heart = new Entity("❤️");
+      const heart = new Entity("❤️", {
+        src: heartsSpriteSheet,
+        frameWidth: 40,
+        frameHeight: 40,
+      });
       this.addEntity(heart, { x, y });
     };
 
