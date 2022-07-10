@@ -1,43 +1,43 @@
-@import 'node_modules/reset-css/_reset';
+@import "node_modules/reset-css/_reset";
 
 $cell-size: 25px;
 $cell-borderColor: gray;
 $cell-borderSize: 1px;
 
 .app {
-    padding: 25px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+
+  .row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
-    .row {
-        display: flex;
-        flex-direction: row;
+    .tile {
+      border-width: $cell-borderSize;
+      border-color: $cell-borderColor;
+      border-style: solid;
+      width: $cell-size;
+      height: $cell-size;
+      margin-left: -$cell-borderSize;
+      margin-top: -$cell-borderSize;
+      padding: 3px;
+      text-align: center;
 
-        .tile {
-            border-width: $cell-borderSize;
-            border-color: $cell-borderColor;
-            border-style: solid;
-            width: $cell-size;
-            height: $cell-size;
-            margin-left: -$cell-borderSize;
-            margin-top: -$cell-borderSize;
-            padding: 3px;
-            text-align: center;
+      p {
+        line-height: 25px;
+        font-size: 25px;
+      }
 
-            p {
-                line-height: 25px;
-                font-size: 25px;
-            }
-
-            &.targeted {
-                background: repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 5px,
-                  red 5px,
-                  red 10px
-                );
-            }
-        }
+      &.targeted {
+        background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 5px,
+          red 5px,
+          red 10px
+        );
+      }
     }
+  }
 }

@@ -10,6 +10,8 @@ import BugBrain from "./BugBrain";
 import PlayerBrain from "./PlayerBrain";
 import randIntBetween from "../utils/randIntBetween";
 
+import playerSpriteSheet from "../../assets/basic_guy3_sheet1.png";
+
 class Game {
   entities = [];
   actions = {};
@@ -28,7 +30,11 @@ class Game {
     const h = 9;
     this.grid = new Grid(w, h);
 
-    const player = new Entity("👩🏻‍🎨");
+    const player = new Entity("👩🏻‍🎨", {
+      src: playerSpriteSheet,
+      frameWidth: 24,
+      frameHeight: 24,
+    });
     this.addEntity(player, { x: 4, y: 4 });
     MoveComponent(player, this.grid);
     PlayerBrain(player, input);
