@@ -72,12 +72,8 @@ class Game {
       this.addEntity(heart, { x, y });
     };
 
-    console.log({ x: randIntBetween(0, w), y: 0 });
-
     this.addSword(randIntBetween(0, w - 1), 0);
     this.addHeart(randIntBetween(0, w - 1), h - 1);
-
-    // this.setState(initialState);
   }
 
   setState = (state) => {

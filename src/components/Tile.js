@@ -1,8 +1,16 @@
 import { h } from "hyperapp";
 
-const Sprite = ({ src, frameWidth, frameHeight, row, col }) => {
+import floorImage from "../../assets/floor1.png";
+
+const Sprite = ({ src, frameWidth, frameHeight, row, col, isBackground }) => {
   return (
-    <div style={{ width: frameWidth + "px", height: frameHeight + "px" }}>
+    <div
+      style={{
+        width: frameWidth + "px",
+        height: frameHeight + "px",
+        position: "absolute",
+      }}
+    >
       <div
         style={{
           background: `url(${src}) -${col * frameWidth}px -${
@@ -26,6 +34,13 @@ const Tile = ({
 }) => {
   return (
     <div class={`tile${targeted ? " targeted" : ""}`}>
+      <Sprite
+        src={floorImage}
+        frameWidth={40}
+        frameHeight={40}
+        row={0}
+        col={0}
+      />
       {unitImage ? (
         <Sprite
           src={unitImage}
