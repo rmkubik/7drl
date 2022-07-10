@@ -18,6 +18,7 @@ class Tile {
   draw() {
     return {
       unit: this.entity ? this.entity.icon : undefined,
+      entity: this.entity,
       unitImage: this.entity ? this.entity.image : undefined,
       unitFrameWidth: this.entity ? this.entity.frameWidth : undefined,
       unitFrameHeight: this.entity ? this.entity.frameHeight : undefined,

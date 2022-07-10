@@ -16,6 +16,10 @@ class Entity {
         default: 5,
         max: 10,
       },
+      attack: {
+        current: 1,
+        default: 1,
+      },
       initiative: {
         current: 0,
         default: 0,
