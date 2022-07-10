@@ -1,6 +1,6 @@
 import { h } from "hyperapp";
 
-import floorImage from "../../assets/floor1.png";
+import floorImage from "../../assets/floor1_x2.png";
 
 const Sprite = ({ src, frameWidth, frameHeight, row, col, isBackground }) => {
   return (
@@ -36,8 +36,8 @@ const Tile = ({
     <div class={`tile${targeted ? " targeted" : ""}`}>
       <Sprite
         src={floorImage}
-        frameWidth={40}
-        frameHeight={40}
+        frameWidth={80}
+        frameHeight={80}
         row={0}
         col={0}
       />
