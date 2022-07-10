@@ -9,6 +9,11 @@ const BugBrain = (entity, rand) => {
   let nextDirection;
 
   const update = () => {
+    if (entity.stats.health.current <= 0) {
+      entity.isDead = true;
+      return;
+    }
+
     move[targeting.directions[nextDirection]]();
   };
 

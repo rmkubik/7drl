@@ -12,8 +12,8 @@ class Entity {
 
     this.stats = {
       health: {
-        current: 5,
-        default: 5,
+        current: 1,
+        default: 1,
         max: 10,
       },
       attack: {

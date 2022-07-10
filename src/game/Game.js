@@ -41,6 +41,10 @@ class Game {
     this.addEntity(player, { x: 4, y: 4 });
     MoveComponent(player, this.grid, ({ entity, targetEntity }) => {
       console.log(`${entity.icon} hit ${targetEntity.icon}`);
+
+      if (targetEntity.stats.health && entity.stats.attack) {
+        targetEntity.stats.health.current -= entity.stats.attack.current;
+      }
     });
     PlayerBrain(player, input);
     player.stats.initiative.current = 1;
@@ -95,6 +99,8 @@ class Game {
       }
     });
 
+    console.log({ entities: this.entities });
+
     this.render();
   };
 
@@ -104,20 +110,26 @@ class Game {
 
   bindActions = (actions) => {
     this.actions = actions;
-    this.turns = new Turns(this.entities, this.render, this.update, () => {
-      // Spawn every 4 turns starting on 1st turn, not 0th turn
-      const { turnNumber } = this.state;
+    this.turns = new Turns(
+      this.entities,
+      this.render,
+      this.update,
+      () => {
+        // Spawn every 4 turns starting on 1st turn, not 0th turn
+        const { turnNumber } = this.state;
 
-      const BUG_SPAWN_INTERVAL = 4;
-      const FIRST_BUG_SPAWN_TURN = 1;
+        const BUG_SPAWN_INTERVAL = 4;
+        const FIRST_BUG_SPAWN_TURN = 1;
 
-      if ((turnNumber - FIRST_BUG_SPAWN_TURN) % BUG_SPAWN_INTERVAL === 0) {
-        const randPos = this.grid.getRandomEdgePosition(this.rand);
-        this.addBug(randPos.x, randPos.y);
-      }
+        if ((turnNumber - FIRST_BUG_SPAWN_TURN) % BUG_SPAWN_INTERVAL === 0) {
+          const randPos = this.grid.getRandomEdgePosition(this.rand);
+          this.addBug(randPos.x, randPos.y);
+        }
 
-      this.actions.incrementTurnNumber();
-    });
+        this.actions.incrementTurnNumber();
+      },
+      { grid: this.grid }
+    );
   };
 
   addEntity(entity, position) {

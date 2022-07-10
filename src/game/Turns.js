@@ -1,12 +1,13 @@
 import TinyQueue from "tinyqueue";
 
 class Turns {
-  constructor(entities, render, update, newTurnCallback) {
+  constructor(entities, render, update, newTurnCallback, { grid }) {
     this.waitingForInput = false;
     this.render = render;
     this.update = update;
     this.entities = entities;
     this.newTurnCallback = newTurnCallback;
+    this.grid = grid;
     this.newTurn();
   }
 
@@ -44,7 +45,8 @@ class Turn {
 
   update() {
     while (!this.isTurnOver() && !this.turns.waitingForInput) {
-      const { brain } = this.getNextEntity().components;
+      const entity = this.getNextEntity();
+      const { brain } = entity.components;
 
       if (brain) {
         switch (brain.type) {
@@ -57,6 +59,13 @@ class Turn {
             break;
         }
         this.render();
+      }
+
+      if (entity.isDead) {
+        this.turns.entities = this.turns.entities.filter(
+          (otherEntity) => otherEntity !== entity
+        );
+        this.turns.grid.removeEntity(entity.position);
       }
     }
 
