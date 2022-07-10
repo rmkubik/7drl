@@ -5,6 +5,8 @@ const MoveComponent = (entity, grid) => {
     return grid.isPositionInGrid(position) && !grid.getEntity(position);
   };
 
+  // MoveComponent needs some sort of "movedIntoOtherEntity" callback
+
   const moveTo = (targetPos) => {
     if (isValidMove(targetPos)) {
       grid.removeEntity(entity.position);
