@@ -18,14 +18,14 @@ body {
     flex-direction: row;
 
     .tile {
-      border-width: $cell-borderSize;
-      border-color: $cell-borderColor;
-      border-style: solid;
+      // border-width: $cell-borderSize;
+      // border-color: $cell-borderColor;
+      // border-style: solid;
       width: $cell-size;
       height: $cell-size;
-      margin-left: -$cell-borderSize;
-      margin-top: -$cell-borderSize;
-      padding: 3px;
+      // margin-left: -$cell-borderSize;
+      // margin-top: -$cell-borderSize;
+      // padding: 3px;
       text-align: center;
 
       p {
