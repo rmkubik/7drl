@@ -17,9 +17,11 @@ class Game {
 
   constructor() {
     this.rand = new gen(this.seed);
-    const input = new Input(document, () => {
-      this.turns.resumeTurn();
-      this.render();
+    const input = new Input(document, ({ hasListener }) => {
+      if (hasListener) {
+        this.turns.resumeTurn();
+        this.render();
+      }
     });
 
     const w = 9;
