@@ -1,16 +1,20 @@
 import TargetingSystem from "./TargetingSystem";
 
-const MoveComponent = (entity, grid) => {
+const MoveComponent = (entity, grid, onEntityCollide) => {
   const isValidMove = (position) => {
-    return grid.isPositionInGrid(position) && !grid.getEntity(position);
+    const targetEntity = grid.getEntity(position);
+
+    return grid.isPositionInGrid(position) && !targetEntity;
   };
 
-  // MoveComponent needs some sort of "movedIntoOtherEntity" callback
-
   const moveTo = (targetPos) => {
+    const targetEntity = grid.getEntity(targetPos);
+
     if (isValidMove(targetPos)) {
       grid.removeEntity(entity.position);
       grid.addEntity(entity, targetPos);
+    } else if (targetEntity) {
+      onEntityCollide && onEntityCollide({ entity, targetEntity });
     } else {
       console.log("invalid move");
     }

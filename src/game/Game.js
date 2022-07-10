@@ -39,7 +39,9 @@ class Game {
       frameHeight: 80,
     });
     this.addEntity(player, { x: 4, y: 4 });
-    MoveComponent(player, this.grid);
+    MoveComponent(player, this.grid, ({ entity, targetEntity }) => {
+      console.log(`${entity.icon} hit ${targetEntity.icon}`);
+    });
     PlayerBrain(player, input);
     player.stats.initiative.current = 1;
 
